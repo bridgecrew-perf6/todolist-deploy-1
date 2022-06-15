@@ -1,9 +1,10 @@
-import React, { useCallback, useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import React, { useCallback, useEffect, useState } from "react";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { categoryArray, categoryState, IToDo, toDoState } from "../atoms";
 
 function ToDo({ text, category, id }: IToDo) {
+  const toDos = useRecoilValue(toDoState);
   const setToDos = useSetRecoilState(toDoState);
   const setCategories = useSetRecoilState(categoryState);
   const [CustomCategory, setCustomCategory] = useRecoilState(categoryArray);
@@ -22,6 +23,9 @@ function ToDo({ text, category, id }: IToDo) {
       ];
     });
   };
+  useEffect(() => {
+    localStorage.setItem("jj", JSON.stringify(toDos));
+  }, [toDos]);
 
   return (
     <Li>

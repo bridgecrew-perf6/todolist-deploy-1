@@ -45,6 +45,7 @@ function ToDoList() {
     },
     [SingleCategory]
   );
+  const Imoji = ["🚀", "🌞", "🌛"];
 
   return (
     <div>
@@ -71,13 +72,24 @@ function ToDoList() {
         </select>
       </Select>
       <CreateToDo />
-      <Content>
-        <ul>
-          {test?.map(toDo => (
-            <ToDo key={toDo.id} {...toDo} />
-          ))}
-        </ul>
-      </Content>
+
+      {toDos.length !== 0 ? (
+        <Content>
+          <ul>
+            {toDos?.map(toDo => (
+              <ToDo key={toDo.id} {...toDo} />
+            ))}
+          </ul>
+        </Content>
+      ) : (
+        <Content>
+          <ul>
+            {test?.map(toDo => (
+              <ToDo key={toDo.id} {...toDo} />
+            ))}
+          </ul>
+        </Content>
+      )}
     </div>
   );
 }
