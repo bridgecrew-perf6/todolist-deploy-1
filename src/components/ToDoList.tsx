@@ -10,6 +10,7 @@ import CreateToDo from "./CreateToDo";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import ToDo from "./ToDo";
+import styled from "styled-components";
 function ToDoList() {
   // const toDos = useRecoilValue(toDoState);
   const toDos = useRecoilValue(toDoSelector);
@@ -17,11 +18,12 @@ function ToDoList() {
   const onInput = (event: React.FormEvent<HTMLSelectElement>) => {
     setCategory(event.currentTarget.value as any);
   };
-  console.log(toDos);
+  // console.log(toDos);
 
   // 로컬스토리지
   let test: IToDo[] = JSON.parse(localStorage.getItem("jj") as string);
   // 로컬스토리지
+  // console.log(test);
 
   // custom
   const [CustomCategory, setCustomCategory] = useRecoilState(categoryArray);
@@ -46,38 +48,94 @@ function ToDoList() {
 
   return (
     <div>
-      <h1>To Dos</h1>
+      <h1>킹God게시판</h1>
       <hr />
 
-      <form onSubmit={handleSubmit}>
+      <Header onSubmit={handleSubmit}>
         <input
           value={SingleCategory}
           onChange={AddCategory}
           placeholder="원하는 카테고리를 입력하세요"
         />
         <button>카테고리 추가하기</button>
-      </form>
+      </Header>
 
-      <select value={category} onInput={onInput}>
-        {CustomCategory.map(el => (
-          <option value={el}>{el}</option>
-        ))}
-      </select>
-
-      {/* <select value={category} onInput={onInput}>
-        <option value="TO_DO">To Do</option>
-        <option value="DOING">Doing</option>
-        <option value="DONE">Done</option>
-      </select> */}
-
+      <Select>
+        <h2>카테고리 선택하기 :</h2>
+        <select value={category} onInput={onInput}>
+          {CustomCategory.map((el, index) => (
+            <option key={index} value={el}>
+              {el}
+            </option>
+          ))}
+        </select>
+      </Select>
       <CreateToDo />
-      <ul>
-        {toDos?.map(toDo => (
-          <ToDo key={toDo.id} {...toDo} />
-        ))}
-      </ul>
+      <Content>
+        <ul>
+          {test?.map(toDo => (
+            <ToDo key={toDo.id} {...toDo} />
+          ))}
+        </ul>
+      </Content>
     </div>
   );
 }
 
 export default ToDoList;
+
+const Header = styled.form`
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  input {
+    width: 350px;
+    height: 2rem;
+    border-radius: 5px;
+    padding: 0 1rem;
+  }
+  button {
+    margin-left: 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: rgb(67, 148, 240);
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    padding: 0 1rem;
+  }
+`;
+
+const Select = styled.div`
+  margin: 2rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h2 {
+    margin-right: 1rem;
+  }
+  select {
+    width: 150px;
+    height: 2rem;
+    border-radius: 5px;
+    padding: 0 1rem;
+  }
+`;
+
+const Content = styled.div`
+  margin: 2rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h2 {
+    margin-right: 1rem;
+  }
+  select {
+    width: 150px;
+    height: 2rem;
+    border-radius: 5px;
+    padding: 0 1rem;
+  }
+`;

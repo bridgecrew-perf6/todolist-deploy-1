@@ -19,12 +19,12 @@ export const toDoState = atom<IToDo[]>({
 
 export const categoryState = atom({
   key: "category",
-  default: "default",
+  default: "초기값",
 });
 
 export const categoryArray = atom<string[]>({
   key: "categoryArray",
-  default: ["default"],
+  default: ["초기값"],
 });
 
 export const toDoSelector = selector({

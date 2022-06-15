@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
+import styled from "styled-components";
 import { categoryArray, categoryState, IToDo, toDoState } from "../atoms";
 
 function ToDo({ text, category, id }: IToDo) {
@@ -23,10 +24,10 @@ function ToDo({ text, category, id }: IToDo) {
   };
 
   return (
-    <li>
-      <span>{text}</span>
-      {CustomCategory.map(el => (
-        <button name={el} onClick={onClick}>
+    <Li>
+      <span>🚀 &nbsp; &nbsp; {text}</span>
+      {CustomCategory.map((el, index) => (
+        <button key={index} name={el} onClick={onClick}>
           {el}
         </button>
       ))}
@@ -45,7 +46,36 @@ function ToDo({ text, category, id }: IToDo) {
           Done
         </button>
       )} */}
-    </li>
+    </Li>
   );
 }
 export default ToDo;
+
+const Li = styled.li`
+  background-color: white;
+  width: 500px;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  justify-content: space-between;
+  margin: 1rem;
+  border-radius: 10px;
+  span {
+    color: black;
+    font-weight: 600;
+  }
+  button {
+    margin-left: 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: rgb(67, 148, 240);
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    padding: 0 1rem;
+    height: 2rem;
+  }
+`;
